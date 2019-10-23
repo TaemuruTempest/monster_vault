@@ -1,13 +1,12 @@
 # monster_vault
  Vault Script By Monster TaerAttO Please credit me. This Script for ESX Framework
 
- # Glovebox
+ # Vault Box
 
 ### Requirements
 ------------
 The following dependencys are required for this script to operate successfully without issues. please ensure you have them started in your resources and working correctly before hand.
 
-- [cron](https://github.com/ESX-Org/cron)
 - [esx_addonaccount](https://github.com/ESX-Org/esx_addonaccount)
 - [esx_addoninventory](https://github.com/ESX-Org/esx_addoninventory)
 - [esx_datastore](https://github.com/ESX-Org/esx_datastore)
@@ -19,7 +18,7 @@ The following dependencys are required for this script to operate successfully w
 - [esx_inventoryhud]--modified for shops (https://forum.fivem.net/t/inventoryhud-shops/685775)
 ### Features
 
--glovebox inventory
+-Vault Box inventory
 
 ### Intergrating Inventorys Tutorial
 
@@ -42,7 +41,7 @@ client_scripts {
   "client/main.lua",
   "client/trunk.lua",
   "client/property.lua",
-  "client/vault.lua",
+  "client/vault.lua", -- Add this By TaerAttO
   "client/player.lua",
   "locales/en.lua",
   "config.lua"
@@ -221,7 +220,7 @@ $('#otherInventory').droppable({
 In your server.cfg file 
 
 ```
-ensure monster_vault
+start monster_vault
 ```
 
 And restart your server, you should then be able to use the resource
