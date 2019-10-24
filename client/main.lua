@@ -40,10 +40,13 @@ function OpenVaultInventoryMenu()
 end
 
 Citizen.CreateThread(function()
-	ESX.Game.SpawnLocalObject(Config.VaultBox, Config.Vault.MonsterVault.coords, function(obj)
+	for k,v in pairs(Config.Vault) do
+		ESX.Game.SpawnLocalObject(Config.VaultBox, v.coords, function(obj)
 			PlaceObjectOnGroundProperly(obj)
 			FreezeEntityPosition(obj, true)
 		end)
+	end
+	
 end)
 
 -- Key controls
@@ -52,16 +55,18 @@ Citizen.CreateThread(function()
 		Citizen.Wait(0)
 		local coords = GetEntityCoords(PlayerPedId())
 
+		for k,v in pairs(Config.Vault) do
+			if GetDistanceBetweenCoords(coords, v.coords, true) < 5 then
+				ESX.ShowHelpNotification("Press E to Vault")
 
-		if GetDistanceBetweenCoords(coords, Config.Vault.MonsterVault.coords, true) < 5 then
-			ESX.ShowHelpNotification("Press E to Vault")
-
-			if IsControlJustReleased(0, Keys['E']) then
-				OpenVaultInventoryMenu()
+				if IsControlJustReleased(0, Keys['E']) then
+					OpenVaultInventoryMenu()
+				end
+			else
+				Citizen.Wait(500)
 			end
-		else
-			Citizen.Wait(500)
 		end
+		
 	end
 end)
 
