@@ -40,10 +40,16 @@ function OpenVaultInventoryMenu()
 end
 
 Citizen.CreateThread(function()
+	while ESX == nil or ESX.PlayerData == nil or ESX.PlayerData.job == nil do
+        Citizen.Wait(10)
+    end
 	for k,v in pairs(Config.Vault) do
 		ESX.Game.SpawnLocalObject(Config.VaultBox, v.coords, function(obj)
+			SetEntityHeading(obj, v.heading)
 			PlaceObjectOnGroundProperly(obj)
 			FreezeEntityPosition(obj, true)
+			SetEntityInvincible(obj, true)
+			SetModelAsNoLongerNeeded(GetHashKey(Config.VaultBox))
 		end)
 	end
 	
@@ -54,16 +60,18 @@ Citizen.CreateThread(function()
 	while true do
 		Citizen.Wait(0)
 		local coords = GetEntityCoords(PlayerPedId())
-
+		local dist = GetDistanceBetweenCoords(coords, v.coords, true)
 		for k,v in pairs(Config.Vault) do
-			if GetDistanceBetweenCoords(coords, v.coords, true) < 5 then
+			if dist < 2 then
 				ESX.ShowHelpNotification("Press E to Vault")
 
 				if IsControlJustReleased(0, Keys['E']) then
 					OpenVaultInventoryMenu()
+				else
+					break
 				end
-			else
-				Citizen.Wait(500)
+			-- else
+			-- 	Citizen.Wait(500)
 			end
 		end
 		

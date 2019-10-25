@@ -15,10 +15,10 @@ AddEventHandler('monster_vault:getItem', function(--[[owner,--]] type, item, cou
 		TriggerEvent('esx_addoninventory:getInventory', 'vault', xPlayerOwner.identifier, function(inventory)
 			local inventoryItem = inventory.getItem(item)
 
-			-- is there enough in the property?
+			
 			if count > 0 and inventoryItem.count >= count then
 			
-				-- can the player carry the said amount of x item?
+				
 				if sourceItem.limit ~= -1 and (sourceItem.count + count) > sourceItem.limit then
 					TriggerClientEvent('esx:showNotification', _source, _U('player_cannot_hold'))
 				else
