@@ -29,5 +29,5 @@ dependencies {
 }
 
 exports {
-	"getMonsterVaultLicence"
+	"getMonsterVaultLicense"
 }

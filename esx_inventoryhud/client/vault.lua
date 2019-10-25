@@ -13,7 +13,7 @@ function refreshVaultInventory()
         function(inventory)
             setVaultInventoryData(inventory)
         end,
-        exports['monster_vault']:getMonsterVaultLicence() --ESX.GetPlayerData().identifier
+        exports['monster_vault']:getMonsterVaultLicense(), true
     )
 end
 

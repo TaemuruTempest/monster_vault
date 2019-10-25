@@ -121,18 +121,21 @@ AddEventHandler('monster_vault:putItem', function(--[[owner,--]] type, item, cou
 
 end)
 
-ESX.RegisterServerCallback('monster_vault:getVaultInventory', function(source, cb, item)
+ESX.RegisterServerCallback('monster_vault:getVaultInventory', function(source, cb, item, refresh)
 	-- local xPlayer    = ESX.GetPlayerFromIdentifier(owner)
 	local xPlayer = ESX.GetPlayerFromId(source)
 	local xItem = xPlayer.getInventoryItem(item)
+	local refresh = refresh or false
 
 	local blackMoney = 0
 	local items      = {}
 	local weapons    = {}
 
-	if xItem.count < 1 then
+	if not refresh and xItem.count < 1 then
 		cb(false)
 		-- return
+	elseif not Config.InfiniteLicense and not refresh then
+		xPlayer.removeInventoryItem(item, 1)
 	end
 
 	TriggerEvent('esx_addonaccount:getAccount', 'vault_black_money', xPlayer.identifier, function(account)
@@ -151,17 +154,5 @@ ESX.RegisterServerCallback('monster_vault:getVaultInventory', function(source, c
 		blackMoney = blackMoney,
 		items      = items,
 		weapons    = weapons
-	})
-end)
-
-ESX.RegisterServerCallback('esx_property:getPlayerInventory', function(source, cb)
-	local xPlayer    = ESX.GetPlayerFromId(source)
-	local blackMoney = xPlayer.getAccount('black_money').money
-	local items      = xPlayer.inventory
-
-	cb({
-		blackMoney = blackMoney,
-		items      = items,
-		weapons    = xPlayer.getLoadout()
 	})
 end)

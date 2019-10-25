@@ -30,12 +30,12 @@ function OpenVaultInventoryMenu()
 		"monster_vault:getVaultInventory",
 		function(inventory)
 			if not inventory then
-				exports['mythic_notify']:SendAlert('error', 'Not have licence card')
+				exports['mythic_notify']:SendAlert('error', 'Not have license card')
 			else
 				TriggerEvent("monster_inventoryhud:openVaultInventory", inventory)
 			end
 		end,
-		getMonsterVaultLicence()
+		getMonsterVaultLicense()
 	)
 end
 
@@ -75,6 +75,6 @@ Citizen.CreateThread(function()
 	end
 end)
 
-function getMonsterVaultLicence()
-	return Config.ItemLicence
+function getMonsterVaultLicense()
+	return Config.ItemLicense
 end
