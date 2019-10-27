@@ -124,17 +124,21 @@ end)
 ESX.RegisterServerCallback('monster_vault:getVaultInventory', function(source, cb, item, refresh)
 	-- local xPlayer    = ESX.GetPlayerFromIdentifier(owner)
 	local xPlayer = ESX.GetPlayerFromId(source)
-	local xItem = xPlayer.getInventoryItem(item)
+	if item ~= '' or item ~= nil then
+		local xItem = xPlayer.getInventoryItem(item)
+	else
+		local xItem.count = 1
+	end
 	local refresh = refresh or false
 
 	local blackMoney = 0
 	local items      = {}
 	local weapons    = {}
 
-	if not refresh and xItem.count < 1 then
+	if not refresh and (item ~= '' or item ~= nil) and xItem.count < 1 then
 		cb(false)
 		-- return
-	elseif not Config.InfiniteLicense and not refresh then
+	elseif not Config.InfiniteLicense and not refresh and (item ~= '' or item ~= nil)  then
 		xPlayer.removeInventoryItem(item, 1)
 	end
 
