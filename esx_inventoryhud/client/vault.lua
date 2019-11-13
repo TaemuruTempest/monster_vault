@@ -8,21 +8,32 @@ AddEventHandler(
 )
 
 function refreshVaultInventory()
+    data = exports['monster_vault']:getMonsterVaultLicense()
     ESX.TriggerServerCallback(
         "monster_vault:getVaultInventory",
         function(inventory)
             setVaultInventoryData(inventory)
         end,
-        exports['monster_vault']:getMonsterVaultLicense(), true
+        data, true
     )
 end
 
-function setVaultInventoryData(data)
+local vaultType
+
+function setVaultInventoryData(inventory)
     items = {}
 
-    local blackMoney = data.blackMoney
-    local vaultItems = data.items
-    local vaultWeapons = data.weapons
+    SendNUIMessage(
+        {
+            action = "setInfoText",
+            text = inventory.job
+        }
+    )
+
+    local blackMoney = inventory.blackMoney
+    local vaultItems = inventory.items
+    local vaultWeapons = inventory.weapons
+    vaultType = inventory.job
 
     if blackMoney > 0 then
         accountData = {
@@ -60,7 +71,7 @@ function setVaultInventoryData(data)
                 items,
                 {
                     label = ESX.GetWeaponLabel(weapon.name),
-                    count = weapon.ammo,
+                    count = weapon.ammo or weapon.count,
                     limit = -1,
                     type = "item_weapon",
                     name = weapon.name,
@@ -106,7 +117,7 @@ RegisterNUICallback(
 
             if data.item.type == "item_weapon" then
                 count = GetAmmoInPedWeapon(PlayerPedId(), GetHashKey(data.item.name))
-				TriggerServerEvent("monster_vault:putItem", --[[ESX.GetPlayerData().identifier,--]] data.item.type, data.item.name, count)
+				TriggerServerEvent("monster_vault:putItem", --[[ESX.GetPlayerData().identifier,--]] vaultType, data.item.type, data.item.name, count)
 			elseif data.item.name == "phone" then
 				exports.pNotify:SendNotification(
                 {
@@ -118,7 +129,7 @@ RegisterNUICallback(
                 }
             )
 			else
-				TriggerServerEvent("monster_vault:putItem", --[[ESX.GetPlayerData().identifier,--]] data.item.type, data.item.name, count)
+				TriggerServerEvent("monster_vault:putItem", --[[ESX.GetPlayerData().identifier,--]] vaultType, data.item.type, data.item.name, count)
             end
 
             
@@ -141,7 +152,7 @@ RegisterNUICallback(
         end
 
         if type(data.number) == "number" and math.floor(data.number) == data.number then
-            TriggerServerEvent("monster_vault:getItem", --[[ESX.GetPlayerData().identifier,--]] data.item.type, data.item.name, tonumber(data.number))
+            TriggerServerEvent("monster_vault:getItem", --[[ESX.GetPlayerData().identifier,--]] vaultType, data.item.type, data.item.name, tonumber(data.number))
         end
 
         Wait(150)

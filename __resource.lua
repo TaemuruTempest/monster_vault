@@ -4,7 +4,7 @@ name 'Monster Vault'
 description 'An Vault script built for Monster ESX Framework - A Monster ESX Framework built for MonsterSrRP NOHD Nightmare'
 author 'TaerAttO'
 version 'v1.0.0'
-url 'https://facebook.com/surapun.khongthong'
+url 'https://discord.io/secretTH'
 
 server_scripts {
 	'@es_extended/locale.lua',

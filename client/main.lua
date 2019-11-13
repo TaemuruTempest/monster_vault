@@ -25,18 +25,32 @@ AddEventHandler('esx:playerLoaded', function(xPlayer)
 	ESX.PlayerData = xPlayer
 end)
 
-function OpenVaultInventoryMenu()
-	ESX.TriggerServerCallback(
-		"monster_vault:getVaultInventory",
-		function(inventory)
-			if not inventory then
-				exports['mythic_notify']:SendAlert('error', 'Not have license card')
-			else
-				TriggerEvent("monster_inventoryhud:openVaultInventory", inventory)
-			end
-		end,
-		getMonsterVaultLicense()
-	)
+local vaultType = {}
+
+RegisterNetEvent('esx:setJob')
+AddEventHandler('esx:setJob', function(job)
+	ESX.PlayerData.job = job
+end)
+
+function OpenVaultInventoryMenu(data)
+	if data.job == ESX.PlayerData.job.name or data.job == 'vault' then
+		print(data.needItemLicense)
+		vaultType = data
+		ESX.TriggerServerCallback(
+			"monster_vault:getVaultInventory",
+			function(inventory)
+				if not inventory then
+					exports['mythic_notify']:SendAlert('error', 'Not have license card')
+				else
+					TriggerEvent("monster_inventoryhud:openVaultInventory", inventory)
+				end
+			end,
+			data
+		)
+	else
+		exports['mythic_notify']:SendAlert('error', "you not have permission for this job", 5500)
+		Citizen.Wait(8000)
+	end
 end
 
 Citizen.CreateThread(function()
@@ -62,10 +76,10 @@ Citizen.CreateThread(function()
 		for k,v in pairs(Config.Vault) do
 			local dist = GetDistanceBetweenCoords(coords, v.coords, true)
 			if dist < 2 then
-				ESX.ShowHelpNotification("Press E to Vault")
+				ESX.ShowHelpNotification("Press E to "..k)
 				
 				if IsControlJustReleased(0, Keys['E']) then
-					OpenVaultInventoryMenu()
+					OpenVaultInventoryMenu({job = k, needItemLicense = v.needItemLicense, InfiniteLicense = v.InfiniteLicense})
 				else
 					break
 				end
@@ -76,5 +90,5 @@ Citizen.CreateThread(function()
 end)
 
 function getMonsterVaultLicense()
-	return Config.ItemLicense
+	return vaultType
 end

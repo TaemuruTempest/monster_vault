@@ -75,7 +75,7 @@ Open esx_inventoryhud/html/js/inventory.js
         } else if (type === "property") {
             $(".info-div").hide();
         } else if (type === "vault") {
-            $(".info-div").hide();
+            $(".info-div").show(); -- edit from hide() to show() on this version by TaerAttO 
         } else if (type === "player") {
             $(".info-div").show();
         }
