@@ -113,31 +113,26 @@ RegisterNUICallback(
         end
 
         if type(data.number) == "number" and math.floor(data.number) == data.number then
-            local count = tonumber(data.number)
+            local count = 0
 
             if data.item.type == "item_weapon" then
                 count = GetAmmoInPedWeapon(PlayerPedId(), GetHashKey(data.item.name))
 				TriggerServerEvent("monster_vault:putItem", --[[ESX.GetPlayerData().identifier,--]] vaultType, data.item.type, data.item.name, count)
-			elseif data.item.name == "phone" then
-				exports.pNotify:SendNotification(
-                {
-                    text = "ห้ามเก็บโทรศัพท์ในตู้เซฟนะ",
-                    type = "error",
-                    timeout = 3000,
-                    layout = "bottomCenter",
-                    queue = "inventoryhud"
-                }
-            )
-			else
+            else
+                if data.number > data.item.count or data.number == 0 then
+                    count = tonumber(data.item.count)
+                else
+                    count = tonumber(data.number)
+                end
 				TriggerServerEvent("monster_vault:putItem", --[[ESX.GetPlayerData().identifier,--]] vaultType, data.item.type, data.item.name, count)
             end
 
             
         end
 
-        Wait(150)
+        Wait(250)
         refreshVaultInventory()
-        Wait(150)
+        Wait(250)
         loadPlayerInventory()
 
         cb("ok")
@@ -152,12 +147,18 @@ RegisterNUICallback(
         end
 
         if type(data.number) == "number" and math.floor(data.number) == data.number then
-            TriggerServerEvent("monster_vault:getItem", --[[ESX.GetPlayerData().identifier,--]] vaultType, data.item.type, data.item.name, tonumber(data.number))
+            local count = 0
+            if data.number > data.item.count or data.number == 0 then
+                count = tonumber(data.item.count)
+            else
+                count = tonumber(data.number)
+            end
+            TriggerServerEvent("monster_vault:getItem", --[[ESX.GetPlayerData().identifier,--]] vaultType, data.item.type, data.item.name, count)
         end
 
-        Wait(150)
+        Wait(250)
         refreshVaultInventory()
-        Wait(150)
+        Wait(250)
         loadPlayerInventory()
 
         cb("ok")
