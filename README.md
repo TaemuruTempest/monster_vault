@@ -122,25 +122,25 @@ $('#playerInventory').droppable({
 
             if (type === "trunk" && itemInventory === "second") {
                 disableInventory(500);
-                $.post("http://monster_inventoryhud/TakeFromTrunk", JSON.stringify({
+                $.post("http://esx_inventoryhud/TakeFromTrunk", JSON.stringify({
                     item: itemData,
                     number: parseInt($("#count").val())
                 }));
             } else if (type === "property" && itemInventory === "second") {
                 disableInventory(500);
-                $.post("http://monster_inventoryhud/TakeFromProperty", JSON.stringify({
+                $.post("http://esx_inventoryhud/TakeFromProperty", JSON.stringify({
                     item: itemData,
                     number: parseInt($("#count").val())
                 }));
             } else if (type === "vault" && itemInventory === "second") {
                 disableInventory(500);
-                $.post("http://monster_inventoryhud/TakeFromVault", JSON.stringify({
+                $.post("http://esx_inventoryhud/TakeFromVault", JSON.stringify({
                     item: itemData,
                     number: parseInt($("#count").val())
                 }));
             } else if (type === "player" && itemInventory === "second") {
                 disableInventory(500);
-                $.post("http://monster_inventoryhud/TakeFromPlayer", JSON.stringify({
+                $.post("http://esx_inventoryhud/TakeFromPlayer", JSON.stringify({
                     item: itemData,
                     number: parseInt($("#count").val())
                 }));
@@ -190,25 +190,25 @@ $('#otherInventory').droppable({
 
             if (type === "trunk" && itemInventory === "main") {
                 disableInventory(500);
-                $.post("http://monster_inventoryhud/PutIntoTrunk", JSON.stringify({
+                $.post("http://esx_inventoryhud/PutIntoTrunk", JSON.stringify({
                     item: itemData,
                     number: parseInt($("#count").val())
                 }));
             } else if (type === "property" && itemInventory === "main") {
                 disableInventory(500);
-                $.post("http://monster_inventoryhud/PutIntoProperty", JSON.stringify({
+                $.post("http://esx_inventoryhud/PutIntoProperty", JSON.stringify({
                     item: itemData,
                     number: parseInt($("#count").val())
                 }));
             } else if (type === "vault" && itemInventory === "main") {
                 disableInventory(500);
-                $.post("http://monster_inventoryhud/PutIntoVault", JSON.stringify({
+                $.post("http://esx_inventoryhud/PutIntoVault", JSON.stringify({
                     item: itemData,
                     number: parseInt($("#count").val())
                 }));
             } else if (type === "player" && itemInventory === "main") {
                 disableInventory(500);
-                $.post("http://monster_inventoryhud/PutIntoPlayer", JSON.stringify({
+                $.post("http://esx_inventoryhud/PutIntoPlayer", JSON.stringify({
                     item: itemData,
                     number: parseInt($("#count").val())
                 }));
