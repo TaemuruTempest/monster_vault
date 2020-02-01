@@ -225,20 +225,20 @@ ESX.RegisterServerCallback('monster_vault:getVaultInventory', function(source, c
 	local items      = {}
 	local weapons    = {}
 
-	if not refresh and (item.needItemLicense ~= '' or item.needItemLicense ~= nil) and xItem ~= nil then
-		if xItem.count < 1 then
-			cb(false)
-		end
+	if not refresh and (item.needItemLicense ~= '' or item.needItemLicense ~= nil) and xItem ~= nil and xItem.count < 1 then
+		-- if xItem.count < 1 then
+		cb(false)
+		-- end
 		-- return
-	elseif item.InfiniteLicense ~= nil and not refresh and (item.needItemLicense ~= '' or item.needItemLicense ~= nil)  then
-		if not item.InfiniteLicense then
+	elseif not item.InfiniteLicense and not refresh and xItem ~= nil and xItem.count > 0 then
+		-- if not item.InfiniteLicense then
 			xPlayer.removeInventoryItem(item.needItemLicense, 1)
-		end
+		-- end
 	end
 
-	if item.job == xPlayer.job.name then
-		print('u job: '..xPlayer.job.name)
-	end
+	-- if item.job == xPlayer.job.name then
+	-- 	print('u job: '..xPlayer.job.name)
+	-- end
 
 	local typeVault = ''
 	local society = false
