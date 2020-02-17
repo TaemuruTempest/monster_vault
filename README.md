@@ -1,3 +1,6 @@
+# Z People and other People
+To the losers who take open-sourced resources and sell them, please die in a fire.
+
 # monster_vault
  Vault Script By Monster TaerAttO Please credit me. This Script for ESX Framework
 
