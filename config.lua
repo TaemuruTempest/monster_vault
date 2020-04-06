@@ -6,7 +6,7 @@ Config.Vault = {
 	vault = {
 		coords = vector3(217.89, -799.96, 29.77),
 		heading = 247.81,
-		needItemLicense = '', --'licence_vault' -- If you don't want to use items Allow you to leave it blank or needItemLicense = nil
+		needItemLicense = 'taeratto_blackcard', --'licence_vault' -- If you don't want to use items Allow you to leave it blank or needItemLicense = nil
 		InfiniteLicense = true -- Should one License last forever?
 	},
 	police = {
