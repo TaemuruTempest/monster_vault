@@ -16,7 +16,7 @@ AddEventHandler('monster_vault:getItem', function(--[[owner,--]] job, type, item
 			TriggerEvent('esx_addoninventory:getSharedInventory', 'society_'..job, function(inventory)
 				local inventoryItem = inventory.getItem(item)
 				if count > 0 and inventoryItem.count >= count then
-					if sourceItem.limit ~= -1 and (sourceItem.count + count) > sourceItem.limit then
+					if sourceItem.weight ~= -1 and (sourceItem.count + count) > sourceItem.weight then
 						print('notify: player cannot hold')
 						TriggerClientEvent('mythic_notify:client:SendAlert', _source, {type = 'error', text = _U('player_cannot_hold'), length = 5500})
 					else
@@ -35,7 +35,7 @@ AddEventHandler('monster_vault:getItem', function(--[[owner,--]] job, type, item
 	
 				
 				if count > 0 and inventoryItem.count >= count then
-					if sourceItem.limit ~= -1 and (sourceItem.count + count) > sourceItem.limit then
+					if sourceItem.weight ~= -1 and (sourceItem.count + count) > sourceItem.weight then
 						TriggerClientEvent('mythic_notify:client:SendAlert', _source,  {type = 'error', text = _U('player_cannot_hold'), length = 5500})
 					else
 						inventory.removeItem(item, count)
