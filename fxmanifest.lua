@@ -26,7 +26,8 @@ dependencies {
 	'es_extended',
 	'esx_addonaccount',
 	'esx_addoninventory',
-	'esx_datastore'
+	'esx_datastore',
+	'mythic_notify'
 }
 
 exports {
