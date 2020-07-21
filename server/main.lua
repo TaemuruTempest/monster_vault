@@ -16,7 +16,8 @@ AddEventHandler('monster_vault:getItem', function(--[[owner,--]] job, type, item
 			TriggerEvent('esx_addoninventory:getSharedInventory', 'society_'..job, function(inventory)
 				local inventoryItem = inventory.getItem(item)
 				if count > 0 and inventoryItem.count >= count then
-					if sourceItem.weight ~= -1 and (sourceItem.count + count) > sourceItem.weight then
+				--	if sourceItem.weight ~= -1 and (sourceItem.count + count) > sourceItem.weight then
+					if not xPlayer.canCarryItem(item, count) then
 						print('notify: player cannot hold')
 						TriggerClientEvent('mythic_notify:client:SendAlert', _source, {type = 'error', text = _U('player_cannot_hold'), length = 5500})
 					else
@@ -35,7 +36,8 @@ AddEventHandler('monster_vault:getItem', function(--[[owner,--]] job, type, item
 	
 				
 				if count > 0 and inventoryItem.count >= count then
-					if sourceItem.weight ~= -1 and (sourceItem.count + count) > sourceItem.weight then
+				--	if sourceItem.weight ~= -1 and (sourceItem.count + count) > sourceItem.weight then
+					if not xPlayer.canCarryItem(item, count) then
 						TriggerClientEvent('mythic_notify:client:SendAlert', _source,  {type = 'error', text = _U('player_cannot_hold'), length = 5500})
 					else
 						inventory.removeItem(item, count)
@@ -56,6 +58,17 @@ AddEventHandler('monster_vault:getItem', function(--[[owner,--]] job, type, item
 				local policeAccountMoney = account.money
 
 				if policeAccountMoney >= count then
+					account.removeMoney(count)
+					xPlayer.addAccountMoney(item, count)
+				else
+					TriggerClientEvent('mythic_notify:client:SendAlert', _source, {type = 'error', text = _U('amount_invalid'), length = 5500})
+				end
+			end)
+		elseif xPlayer.job.name == job then
+			TriggerEvent('esx_addonaccount:getSharedAccount', 'society_'..job..'_'..item, function(account)
+				local nachtclubAccountMoney = account.money
+
+				if nachtclubAccountMoney >= count then
 					account.removeMoney(count)
 					xPlayer.addAccountMoney(item, count)
 				else
@@ -163,6 +176,10 @@ AddEventHandler('monster_vault:putItem', function(--[[owner,--]] job, type, item
 				TriggerEvent('esx_addonaccount:getSharedAccount', 'society_'..job..'_'..item, function(account)
 					account.addMoney(count)
 				end)
+			elseif xPlayer.job.name == job and job == 'nachtclub' then
+				TriggerEvent('esx_addonaccount:getSharedAccount', 'society_'..job..'_'..item, function(account)
+					account.addMoney(count)
+				end)
 			elseif job == 'vault' then
 				TriggerEvent('esx_addonaccount:getAccount', 'vault_' .. item, xPlayerOwner.identifier, function(account)
 					account.addMoney(count)
@@ -251,7 +268,7 @@ ESX.RegisterServerCallback('monster_vault:getVaultInventory', function(source, c
 	print("Vault: "..typeVault)
 
 	if society then
-		if item.job == 'police' then
+		if item.job == 'police' or item.job == 'nachtclub' then
 			TriggerEvent('esx_addonaccount:getSharedAccount', typeVault..'_black_money', function(account)
 				blackMoney = account.money
 			end)
