@@ -1,6 +1,3 @@
-# Z People and other People
-To the losers who take open-sourced resources and sell them, please die in a fire.
-
 # monster_vault
  Vault Script By Monster TaerAttO Please credit me. This Script for ESX Framework
 
@@ -13,12 +10,8 @@ The following dependencys are required for this script to operate successfully w
 - [esx_addonaccount](https://github.com/ESX-Org/esx_addonaccount)
 - [esx_addoninventory](https://github.com/ESX-Org/esx_addoninventory)
 - [esx_datastore](https://github.com/ESX-Org/esx_datastore)
-- [esx_inventoryhud 2.3+](https://github.com/Trsak/esx_inventoryhud)
+- [esx_inventoryhud 2.4+](https://github.com/dutchplayers/ESX-1.2-Inventory-HUD)
 
-## addons that are supported
-- [esx_inventoryhud-trunk](https://forum.fivem.net/t/addon-esx-inventory-hud-vehicle-trunk/458152)
-# Works with 
-- [esx_inventoryhud]--modified for shops (https://forum.fivem.net/t/inventoryhud-shops/685775)
 ### Features
 
 -Vault Box inventory
