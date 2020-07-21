@@ -1,4 +1,4 @@
-# monster_vault
+# monster_vault for ESX 1.2 Inventory HUD
  Vault Script By Monster TaerAttO Please credit me. This Script for ESX Framework
 
  # Vault Box
