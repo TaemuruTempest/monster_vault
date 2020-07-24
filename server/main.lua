@@ -239,6 +239,7 @@ ESX.RegisterServerCallback('monster_vault:getVaultInventory', function(source, c
 	local refresh = refresh or false
 
 	local blackMoney = 0
+	local money = 0
 	local items      = {}
 	local weapons    = {}
 
@@ -275,6 +276,13 @@ ESX.RegisterServerCallback('monster_vault:getVaultInventory', function(source, c
 		else
 			blackMoney = 0
 		end
+		if item.job == 'police' or item.job == 'nachtclub' then
+			TriggerEvent('esx_addonaccount:getSharedAccount', typeVault..'_money', function(account)
+				money = account.money
+			end)
+		else
+			money = 0
+		end
 		TriggerEvent('esx_addoninventory:getSharedInventory', typeVault, function(inventory)
 			items = inventory.items
 		end)
@@ -285,11 +293,15 @@ ESX.RegisterServerCallback('monster_vault:getVaultInventory', function(source, c
 			blackMoney = blackMoney,
 			items      = items,
 			weapons    = weapons,
+			money = money,
 			job = item.job
 		})
 	else
 		TriggerEvent('esx_addonaccount:getAccount', typeVault..'_black_money', xPlayer.identifier, function(account)
 			blackMoney = account.money
+		end)
+		TriggerEvent('esx_addonaccount:getAccount', typeVault..'_money', xPlayer.identifier, function(account)
+			money = account.money
 		end)
 
 		TriggerEvent('esx_addoninventory:getInventory', typeVault, xPlayer.identifier, function(inventory)
@@ -304,6 +316,7 @@ ESX.RegisterServerCallback('monster_vault:getVaultInventory', function(source, c
 			blackMoney = blackMoney,
 			items      = items,
 			weapons    = weapons,
+			money  = money,
 			job = item.job
 		})
 	end

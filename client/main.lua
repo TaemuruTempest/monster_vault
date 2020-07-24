@@ -23,9 +23,7 @@ function OpenVaultInventoryMenu(data)
 	if data.job == ESX.PlayerData.job.name or data.job == 'vault' then
 		print(data.needItemLicense)
 		vaultType = data
-		ESX.TriggerServerCallback(
-			"monster_vault:getVaultInventory",
-			function(inventory)
+		ESX.TriggerServerCallback("monster_vault:getVaultInventory", function(inventory)
 				if not inventory then
 					exports['mythic_notify']:SendAlert('error', 'Not have license card')
 				else
