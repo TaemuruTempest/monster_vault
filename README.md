@@ -3,4 +3,4 @@ Read the Inventory HUD 2.4 [wiki](https://github.com/dutchplayers/ESX-1.2-Invent
 
 ![original](https://www.dutch-players.nl/wp-content/uploads/2020/06/dutchplayers_original.png)
 
-[MonsterTaerAttO](https://github.com/MonsterTaerAttO/monster_vault) for installing.
+[MonsterTaerAttO](https://github.com/MonsterTaerAttO/monster_vault)
