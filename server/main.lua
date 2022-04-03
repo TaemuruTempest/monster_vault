@@ -183,7 +183,7 @@ AddEventHandler('monster_vault:putItem', function(--[[owner,--]] job, type, item
 	
 				table.insert(storeWeapons, {
 					name = item,
-					count = count
+					ammo = count
 				})
 	
 				xPlayer.removeWeapon(item)
